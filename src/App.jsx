@@ -1,23 +1,24 @@
-import React, { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { deleteUser } from './store/reducers/userSlice';
+import React from "react";
+import { Link, Route, Routes } from "react-router-dom";
+import Home from "./components/Home";
+import Users from "./components/Users";
+import Products from "./components/Products";
 
 function App() {
-    const {users} = useSelector(state => state.userSlice);
-    const dispatch = useDispatch()
   return (
-    <div className='w-full h-screen bg-zinc-900 p-10'>
-      <div className="h-80 bg-zinc-700 text-zinc-300">
-        <ul className='p-5'>
-        {users.map((user, index) => (
-          <li key={index} className='mt-1'>
-            {user.firstname} {user.lastname} <span onClick={() => dispatch(deleteUser(index))} className='text-red-500 cursor-pointer'>X</span>
-          </li>
-        ))}
-        </ul>
-      </div>
+    <div className="w-full h-screen bg-zinc-900 text-white">
+      <nav className="flex text-zinc-300 bg-zinc-700 justify-center gap-8 py-3">
+        <Link to="/">Home</Link>
+        <Link to="/users">Users</Link>
+        <Link to="/products">Products</Link>
+      </nav>
+      <Routes>
+        <Route path="/" element={<Home />}></Route>
+        <Route path="/users" element={<Users />}></Route>
+        <Route path="/products" element={<Products />}></Route>
+      </Routes>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
